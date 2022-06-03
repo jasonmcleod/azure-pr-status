@@ -28,7 +28,7 @@ interface IProject {
     } else {        
       console.log(chalk.cyanBright(`${list.length} active PR${list.length === 1 ? '':'s'} for ${project.repo}`));
       list.forEach((pr) => {
-        console.log(`${pr.title}, by ${pr.author}\n\t${pr.url}`);
+        console.log(`${pr.title}, by ${pr.author}\n\t${project.collectionURL}/${project.repo}/_git/${project.repo}/pullrequest/${pr.id}`);      
       });
       console.log('\n')      
     }

@@ -40,29 +40,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv/config");
+var fs_1 = __importDefault(require("fs"));
 var chalk_1 = __importDefault(require("chalk"));
 var util_1 = require("./util");
-var sallusCollectionUrl = process.env.SALLUS_COLLECTION_URL;
-var saliCollectionUrl = process.env.SALI_COLLECTION_URL;
-var sallusToken = process.env.SALLUS_TOKEN;
-var saliToken = process.env.SALI_TOKEN;
-if (!sallusCollectionUrl || !saliCollectionUrl || !sallusToken || !saliToken) {
-    console.error('collectionURL and token are required for both Sali and Sallus. Did you set up your .env file?');
+var projects;
+try {
+    projects = JSON.parse(fs_1.default.readFileSync('./projects.json').toString());
+}
+catch (err) {
+    console.log('Failed to load projects.json!');
+    console.log(err);
     process.exit();
 }
-var checks = [
-    { org: 'sallus', repo: 'sallus-web', collectionURL: sallusCollectionUrl, token: sallusToken },
-    { org: 'sallus', repo: 'sallus-api', collectionURL: sallusCollectionUrl, token: sallusToken },
-    { org: 'sallus', repo: 'sallus-functions', collectionURL: sallusCollectionUrl, token: sallusToken },
-    { org: 'sali', repo: 'sali-web', collectionURL: saliCollectionUrl, token: saliToken },
-    { org: 'sali', repo: 'sali-api', collectionURL: saliCollectionUrl, token: saliToken },
-    { org: 'sali', repo: 'sali-functions', collectionURL: saliCollectionUrl, token: saliToken },
-    { org: 'sali', repo: 'sali-admin', collectionURL: saliCollectionUrl, token: saliToken },
-];
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        checks.forEach(function (project) { return __awaiter(void 0, void 0, void 0, function () {
+        projects.forEach(function (project) { return __awaiter(void 0, void 0, void 0, function () {
             var list, _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
