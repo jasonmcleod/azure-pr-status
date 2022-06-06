@@ -19,7 +19,8 @@ interface IProject {
   collectionURL: string;
   token: string;
   reviewers: any[],
-  requiredApprovals?: number
+  requiredApprovals?: number,
+  myDisplayName?: string
 }
 
 (async() => {
@@ -30,13 +31,21 @@ interface IProject {
     } else {        
       console.log(chalk.cyanBright(`${list.length} active PR${list.length === 1 ? '':'s'} for ${project.repo}`));
       list.forEach((pr) => {
-        let approvalsLabel = ''
+        let approvalsLabel = '';
+        let myApprovalLabel = '';
+        let hasMyApproval = false;
         if(project.requiredApprovals && project.requiredApprovals !== 0) {
           const approvals = pr.reviewers?.filter((reviewer) => reviewer.vote === 10);
+          if(project.myDisplayName) {
+            // console.log(pr.reviewers);
+            hasMyApproval = !!pr.reviewers?.find((reviewer) => reviewer.vote === 10 && reviewer.displayName === project.myDisplayName);
+          } 
           const approvalColor = approvals.length >= project.requiredApprovals ? 'green':'yellow';
-          approvalsLabel = chalk[approvalColor](` with ${approvals.length} of ${project.requiredApprovals} approval${approvals.length === 1 ? '':'s'}`);
+          
+          myApprovalLabel = hasMyApproval ? chalk.green('Has my approval.') : chalk.yellow('Does not have my approval.')          
+          approvalsLabel = chalk[approvalColor](`${approvals.length} of ${project.requiredApprovals} approval${project.requiredApprovals === 1 ? '':'s'}.`);
         }
-        console.log(`${pr.title}, by ${pr.author}\n\t${project.collectionURL}/${project.repo}/_git/${project.repo}/pullrequest/${pr.id}${approvalsLabel}.`);
+        console.log(`${pr.title}, by ${pr.author}\n\t${project.collectionURL}/${project.repo}/_git/${project.repo}/pullrequest/${pr.id}\n\t${approvalsLabel}\n\t${myApprovalLabel}`);
       });
       console.log('\n')      
     }
