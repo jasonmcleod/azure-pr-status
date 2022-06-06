@@ -12,6 +12,7 @@ Each line in the json file should have the following info:
 - `repo`: The repo name
 - `collectionUrl`: Typically `https://dev.azure.com/${org}`
 - `token`: Your own [Personal Access Token](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows) for this org.
+- `reuiqiredApprovals`: Optional. If specified, the output will render a colorized output to indicate if the PR could be merged.
 
 ---
 

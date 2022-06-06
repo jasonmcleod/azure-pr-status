@@ -1,4 +1,4 @@
 [
-    { "org": "your-org", "repo": "your-repo", "collectionURL": "https://dev.azure.com/{your-org}", "token": "{your personal access token for your-org}"},
+    { "org": "your-org", "repo": "your-repo", "collectionURL": "https://dev.azure.com/{your-org}", "token": "{your personal access token for your-org}", "requiredApprovals":2},
     { "org": "your-other-org", "repo": "some-other-repo", "collectionURL": "https://dev.azure.com/{your-other-org}", "token": "{your personal access token for your-other-org}"}
 ]
